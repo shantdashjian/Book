@@ -1,20 +1,15 @@
 pipeline {
-    agent { docker 'maven:3.3.3' }
+    agent any
+
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
+
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-            		retry(3) {
-            			sh 'echo "Hello World"'
-            		}
-            		
-            		timeout(time: 3, unit: 'MINUTES') {
-            			sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                    echo "Testing"
-                		'''
-            		}
-                
+                sh 'printenv'
             }
         }
     }
